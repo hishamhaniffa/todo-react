@@ -41,3 +41,8 @@ ul{
 li{
   list-style: none;
 }
+
+.error {
+  color: red;
+  text-align: center;
+}

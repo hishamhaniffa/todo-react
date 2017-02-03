@@ -4,11 +4,15 @@ import './App.css';
 import {TodoForm, TodoList, Footer} from './components/todo';
 import {addTodo, generateId, findById, toggleTodo, updateTodo, removeTodo, filterTodos} from './lib/todoHelpers'
 import {pipe, partial} from './lib/utils'
-import {loadTodos, createTodo, saveTodo, destroyTodo} from './lib/todoService'
+// import {loadTodos, createTodo, saveTodo, destroyTodo} from './lib/todoService'
 
 class App extends Component {
   state = {
-      todos: [],
+      todos: [
+        {id:1, name: 'Learn JSX', isComplete: true},
+        {id:2, name: 'Build an Awesome App', isComplete: false},
+        {id:3, name:'Ship It!', isComplete: false}
+      ],
       currentTodo: ''
     }
 
@@ -16,17 +20,18 @@ class App extends Component {
     route: React.PropTypes.string
   }
 
-  componentDidMount() {
-    loadTodos()
-      .then(todos => this.setState({todos}));
-  }
+  // componentDidMount() {
+  //   loadTodos()
+  //     .then(todos => this.setState({todos}));
+  // }
 
   handleRemove = (id, evt) => {
     evt.preventDefault()
     const updatedTodos = removeTodo(this.state.todos, id)
     this.setState({todos: updatedTodos})
-    destroyTodo(id)
-      .then(() => this.showTempMessage('Todo Removed'))
+    this.showTempMessage('Todo Removed')
+    // destroyTodo(id)
+    //   .then(() => this.showTempMessage('Todo Removed'))
   }
   handleToggle = (id) => {
     const getToggledTodo = pipe(findById, toggleTodo)
@@ -34,8 +39,9 @@ class App extends Component {
     const getUpdatedTodos = partial(updateTodo, this.state.todos)
     const updatedTodos = getUpdatedTodos(updated)
     this.setState({todos: updatedTodos})
-    saveTodo(updated)
-      .then(() => this.showTempMessage('Todo Updated'))
+    this.showTempMessage('Todo Updated')
+    // saveTodo(updated)
+    //   .then(() => this.showTempMessage('Todo Updated'))
   }
 
   handleSubmit = (evt) => {
@@ -48,8 +54,9 @@ class App extends Component {
       currentTodo:'',
       errorMessage: ''
     })
-    createTodo(newTodo)
-      .then(() => this.showTempMessage('Todo added'))
+    this.showTempMessage('Todo added')
+    // createTodo(newTodo)
+    //   .then(() => this.showTempMessage('Todo added'))
   }
 
   showTempMessage = (msg) => {

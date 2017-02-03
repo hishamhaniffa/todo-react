@@ -61,6 +61,10 @@ li:hover span.delete-item{
   text-align: center;
 }
 
+.success {
+  color:green;
+}
+
 .Footer a {
    padding-left: 2px;
    padding-right: 2px; 
